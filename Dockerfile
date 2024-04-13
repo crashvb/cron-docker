@@ -18,6 +18,7 @@ RUN docker-apt cron
 
 # Configure: cron
 COPY cron.* /usr/local/share/cron/
+RUN rm --force /etc/cron.*/*
 
 # Configure: supervisor
 COPY supervisord.cron.conf /etc/supervisor/conf.d/cron.conf
