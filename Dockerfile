@@ -17,7 +17,9 @@ LABEL \
 RUN docker-apt cron
 
 # Configure: cron
-COPY cron.* /usr/local/share/cron/
+ENV \
+	CRON_TRUNCATION_SCHEDULE="0 0 * * 0" \
+	CRONTAB_ENVSUBST_TRUNCATE_CRON_LOG="\${CRON_TRUNCATION_SCHEDULE} root >/var/log/cron.log 2>&1"
 RUN rm --force /etc/cron.*/*
 
 # Configure: supervisor

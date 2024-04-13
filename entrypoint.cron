@@ -8,14 +8,6 @@ if [[ ! -e "${EP_RUN}" ]] ; then
 
 	install --group=root --mode=0644 --owner=root /dev/null /var/log/cron.log
 
-	# cron
-	path="/etc/cron.d/truncate-cron-log"
-	if [[ ! -e "${path}" ]] ; then
-		render_template /usr/local/share/cron/cron "${path}"
-	else
-		log "Skipping: truncate-cron-log ..."
-	fi
-
 	log "Generating cron.d entries [envsubst] ..."
 	# crontab_*
 	for ct in ${!CRONTAB_ENVSUBST_@}; do
