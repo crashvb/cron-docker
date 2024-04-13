@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+# Configure: cron
+if [[ ! -e "${EP_RUN}" ]] ; then
+	log "Configuring $(basename "${0}") for first run ..."
+
+	install --group=root --mode=0644 --owner=root /dev/null /var/log/cron.log
+
+	# cron
+	path="/etc/cron.d/truncate-cron-log"
+	if [[ ! -e "${path}" ]] ; then
+		render_template /usr/local/share/cron/cron "${path}"
+	else
+		log "Skipping: truncate-cron-log ..."
+	fi
+fi
+
