@@ -19,9 +19,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/cron` and perfor
 
  | Variable | Default Value | Description |
  | -------- | ------------- | ----------- |
- | GETMAIL\_RC | | The contents of `<crondir>/cronrc`. |
- | GETMAIL\_RC* | | The contents of `<crondir>/rc-*`. For example, `GETMAIL_RCFOO` will create `<crondir>`/rc-foo`. |
- | GETMAIL\_SCHEDULE | &ast;/15 &ast; &ast; &ast; &ast; | Schedule section of the cron crontab entry. |
+ | CRON\_TRUNCATION\_SCHEDULE | 0 0 &ast; &ast; 0  | Schedule at which to truncate the crontab log. |
 
 ## Standard Configuration
 
