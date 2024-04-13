@@ -15,5 +15,36 @@ if [[ ! -e "${EP_RUN}" ]] ; then
 	else
 		log "Skipping: truncate-cron-log ..."
 	fi
+
+	log "Generating cron.d entries [envsubst] ..."
+	# crontab_*
+	for ct in ${!CRONTAB_ENVSUBST_@}; do
+		[[ "X${!ct}" == "X" ]] && continue
+
+		name="${ct,,}"
+		name="${name#"crontab_envsubst_"}"
+		[[ "X${name}" == "X" ]] && continue
+
+		log "	${name}"
+		path="/etc/cron.d/${name}"
+		install --group=root --mode=0644 --owner=root /dev/null "${path}"
+		echo "${!ct}" | envsubst > "${path}"
+	done
+
+	log "Generating cron.d entries ..."
+	# crontab_*
+	for ct in ${!CRONTAB_@}; do
+		[[ "X${!ct}" == "X" ]] && continue
+		[[ "${ct}" = CRONTAB_ENVSUBST_* ]] && continue
+
+		name="${ct,,}"
+		name="${name#"crontab_"}"
+		[[ "X${name}" == "X" ]] && continue
+
+		log "	${name}"
+		path="/etc/cron.d/${name}"
+		install --group=root --mode=0644 --owner=root /dev/null "${path}"
+		echo "${!ct}" > "${path}"
+	done
 fi
 

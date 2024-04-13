@@ -19,6 +19,8 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/cron` and perfor
 
  | Variable | Default Value | Description |
  | -------- | ------------- | ----------- |
+ | CRONTAB\_* | | The contents of `/etc/cron.d/*`. For example, `CRONTAB_FOO` will create `/etc/cron.d/foo`. |
+ | CRONTAB\_ENVSUBST\_* | | The contents of `/etc/cron.d/*`. For example, `CRONTAB_ENVSUBST_BAR` will create `/etc/cron.d/bar`, after envsubst has been applied. |
  | CRON\_TRUNCATION\_SCHEDULE | 0 0 &ast; &ast; 0  | Schedule at which to truncate the crontab log. |
 
 ## Standard Configuration
@@ -28,7 +30,7 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/cron` and perfor
 ```
 /
 └─ etc/
-   ├─ cron/
+   ├─ cron.d/
    ├─ entrypoint.d/
    │  └─ cron
    ├─ healthcheck.d/
